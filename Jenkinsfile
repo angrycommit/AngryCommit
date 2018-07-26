@@ -1,22 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('wait') {
+    stage('checkout') {
       steps {
-        waitUntil() {
-          sh 'echo hello'
-          waitUntil() {
-            sh 'sleep 4'
-            sh 'sleep 5'
-          }
-
-        }
-
-      }
-    }
-    stage('over') {
-      steps {
-        sleep 4
+        git(url: 'https://github.com/angrycommit/AngryCommit.git', branch: 'new')
       }
     }
   }
