@@ -95,6 +95,7 @@ pipeline {
     stage('Greet Goodbye') {
       steps {
         sh 'echo goodbye!'
+        
       }
     }
   }
