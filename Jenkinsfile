@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'mdr01webap' }
+  agent any
   stages {
     stage('checkout') {
       steps {
@@ -28,6 +28,11 @@ pipeline {
     }
     } // SonarQube taskId is automatically attached to the pipeline context
   }
+     stage('sleep') {
+      steps {
+        sleep 5
+      }
+    }
   stage("Quality Gate") {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
