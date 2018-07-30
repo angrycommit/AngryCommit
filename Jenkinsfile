@@ -16,6 +16,28 @@ pipeline {
         sh 'mvn test'
       }
     }
+    stage('build & SonarQube Scan') {
+      steps{
+          script{
+              scannerHome = tool 'SonarScanner'
+          }
+    withSonarQubeEnv('Sonar') {
+         sh "echo The workspace is: ${WORKSPACE}"
+      sh "${scannerHome}/bin/sonar-scanner"
+     
+    }
+    } // SonarQube taskId is automatically attached to the pipeline context
+  }
+  stage("Quality Gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    // Requires SonarQube Scanner for Jenkins 2.7+
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+  }
     stage('Package') {
       steps {
         sh 'mvn package'
