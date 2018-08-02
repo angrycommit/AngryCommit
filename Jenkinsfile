@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent {label 'mdr01webap'}
   stages {
     stage('checkout') {
       steps {
