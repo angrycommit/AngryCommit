@@ -3,7 +3,7 @@
  */
 public class HelloWorld {
 
-
+//Adding simple comment
     public int sum(int x, int y){
 
         return x + y;
